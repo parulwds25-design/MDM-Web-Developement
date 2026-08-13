@@ -1,0 +1,1308 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interactive Personality Quiz</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #222;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+            padding: 45px;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* START SCREEN */
+
+        #start-screen {
+            text-align: center;
+        }
+
+        .icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 38px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: #666;
+            font-size: 17px;
+            line-height: 1.7;
+            max-width: 650px;
+            margin: 0 auto 35px;
+        }
+
+        .personality-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .type-card {
+            padding: 20px 10px;
+            border-radius: 15px;
+            background: #f8f9ff;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .type-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .type-card span {
+            font-size: 35px;
+        }
+
+        .type-card h3 {
+            margin: 10px 0 6px;
+            font-size: 17px;
+        }
+
+        .type-card p {
+            font-size: 12px;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        .creative {
+            border-color: #ff8fab;
+        }
+
+        .logical {
+            border-color: #6c8cff;
+        }
+
+        .practical {
+            border-color: #43c59e;
+        }
+
+        .social {
+            border-color: #ffb84d;
+        }
+
+        /* BUTTONS */
+
+        button {
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 14px 25px;
+            transition: 0.3s;
+        }
+
+        .primary-btn {
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+        }
+
+        .secondary-btn {
+            background: #eeeeee;
+            color: #555;
+        }
+
+        .secondary-btn:hover {
+            background: #dddddd;
+        }
+
+        /* QUIZ */
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: #eeeeee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .question-box {
+            min-height: 350px;
+        }
+
+        #question-text {
+            font-size: 27px;
+            line-height: 1.4;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        #options-container {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #e5e5e5;
+            border-radius: 14px;
+            background: white;
+            cursor: pointer;
+            transition: 0.25s;
+            text-align: left;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f7f8ff;
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #eef0ff;
+            box-shadow: 0 5px 15px rgba(102,126,234,0.15);
+        }
+
+        .option-letter {
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eeeeee;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .option.selected .option-letter {
+            background: #667eea;
+            color: white;
+        }
+
+        .option-text {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        /* RESULT */
+
+        #result-screen {
+            text-align: center;
+        }
+
+        .result-icon {
+            font-size: 65px;
+            margin-bottom: 10px;
+        }
+
+        .result-intro {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .main-result {
+            font-size: 42px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .result-description {
+            max-width: 650px;
+            margin: 0 auto 35px;
+            color: #555;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .results-container {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+        }
+
+        .result-label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .result-bar {
+            height: 14px;
+            width: 100%;
+            background: #eeeeee;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+            transition: width 1s ease;
+        }
+
+        .creative-bar {
+            background: #ff6f91;
+        }
+
+        .logical-bar {
+            background: #5b7cfa;
+        }
+
+        .practical-bar {
+            background: #28b98a;
+        }
+
+        .social-bar {
+            background: #ffad32;
+        }
+
+        .result-message {
+            background: #f6f7ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        .result-message h3 {
+            color: #333;
+            margin-bottom: 7px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+
+            .screen {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .personality-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #question-text {
+                font-size: 22px;
+            }
+
+            .question-box {
+                min-height: 380px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 18px;
+            }
+
+            .personality-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .type-card {
+                padding: 15px 8px;
+            }
+
+            .navigation button {
+                padding: 12px 15px;
+            }
+
+            .main-result {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= START SCREEN ================= -->
+
+    <section id="start-screen" class="screen active">
+
+        <div class="icon">🧠</div>
+
+        <h1>Interactive Personality Quiz</h1>
+
+        <p class="intro">
+            Answer 15 questions and discover which personality
+            style is strongest in you.
+            Are you Creative, Logical, Practical, or Social?
+        </p>
+
+        <div class="personality-cards">
+
+            <div class="type-card creative">
+                <span>🎨</span>
+                <h3>Creative</h3>
+                <p>Imaginative, curious and innovative</p>
+            </div>
+
+            <div class="type-card logical">
+                <span>🧩</span>
+                <h3>Logical</h3>
+                <p>Analytical, thoughtful and rational</p>
+            </div>
+
+            <div class="type-card practical">
+                <span>🔧</span>
+                <h3>Practical</h3>
+                <p>Organized, reliable and action-oriented</p>
+            </div>
+
+            <div class="type-card social">
+                <span>🤝</span>
+                <h3>Social</h3>
+                <p>Friendly, empathetic and communicative</p>
+            </div>
+
+        </div>
+
+        <button id="start-btn" class="primary-btn">
+            Start Quiz
+        </button>
+
+    </section>
+
+
+    <!-- ================= QUIZ SCREEN ================= -->
+
+    <section id="quiz-screen" class="screen">
+
+        <div class="quiz-header">
+
+            <span id="question-number">
+                Question 1 of 15
+            </span>
+
+            <span id="score-display">
+                Progress: 0%
+            </span>
+
+        </div>
+
+        <div class="progress-container">
+
+            <div id="progress-bar"></div>
+
+        </div>
+
+
+        <div class="question-box">
+
+            <h2 id="question-text">
+                Question will appear here
+            </h2>
+
+            <div id="options-container"></div>
+
+        </div>
+
+
+        <div class="navigation">
+
+            <button id="previous-btn" class="secondary-btn">
+                ← Previous
+            </button>
+
+            <button id="next-btn" class="primary-btn">
+                Next →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= RESULT SCREEN ================= -->
+
+    <section id="result-screen" class="screen">
+
+        <div class="result-icon">
+            🏆
+        </div>
+
+        <h1>
+            Your Personality Result
+        </h1>
+
+        <p class="result-intro">
+            Your strongest personality style is:
+        </p>
+
+        <div id="main-result" class="main-result">
+            Creative
+        </div>
+
+        <p id="result-description" class="result-description">
+            Description
+        </p>
+
+
+        <div class="results-container">
+
+            <div class="result-item">
+
+                <div class="result-label">
+                    <span>🎨 Creative</span>
+                    <span id="creative-percent">0%</span>
+                </div>
+
+                <div class="result-bar">
+                    <div id="creative-bar"
+                         class="bar creative-bar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <div class="result-label">
+                    <span>🧩 Logical</span>
+                    <span id="logical-percent">0%</span>
+                </div>
+
+                <div class="result-bar">
+                    <div id="logical-bar"
+                         class="bar logical-bar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <div class="result-label">
+                    <span>🔧 Practical</span>
+                    <span id="practical-percent">0%</span>
+                </div>
+
+                <div class="result-bar">
+                    <div id="practical-bar"
+                         class="bar practical-bar"></div>
+                </div>
+
+            </div>
+
+
+            <div class="result-item">
+
+                <div class="result-label">
+                    <span>🤝 Social</span>
+                    <span id="social-percent">0%</span>
+                </div>
+
+                <div class="result-bar">
+                    <div id="social-bar"
+                         class="bar social-bar"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-message">
+
+            <h3>About Your Result</h3>
+
+            <p>
+                This quiz is designed for entertainment and
+                self-reflection. Your personality can contain
+                characteristics from multiple categories.
+            </p>
+
+        </div>
+
+
+        <button id="restart-btn" class="primary-btn">
+            Take Quiz Again
+        </button>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   QUESTIONS
+========================================= */
+
+const questions = [
+
+    {
+        question: "You have a free weekend. What would you most likely do?",
+        options: [
+            ["Start a creative project or explore a new idea", "creative"],
+            ["Solve puzzles, read or learn something interesting", "logical"],
+            ["Complete useful tasks or work on a personal project", "practical"],
+            ["Meet friends or spend time with other people", "social"]
+        ]
+    },
+
+    {
+        question: "When facing a difficult problem, what is your first reaction?",
+        options: [
+            ["Think of unusual and imaginative solutions", "creative"],
+            ["Break the problem into smaller logical parts", "logical"],
+            ["Look for the quickest solution that actually works", "practical"],
+            ["Ask others for their opinions and experiences", "social"]
+        ]
+    },
+
+    {
+        question: "Which type of activity sounds most enjoyable?",
+        options: [
+            ["Drawing, designing, writing or creating something", "creative"],
+            ["Strategy games, puzzles or challenging problems", "logical"],
+            ["Building, fixing or organizing something", "practical"],
+            ["Parties, group activities or conversations", "social"]
+        ]
+    },
+
+    {
+        question: "How do you usually make an important decision?",
+        options: [
+            ["I imagine different possibilities", "creative"],
+            ["I compare facts and evidence", "logical"],
+            ["I choose what seems most useful and realistic", "practical"],
+            ["I consider how it will affect people", "social"]
+        ]
+    },
+
+    {
+        question: "What kind of environment helps you work best?",
+        options: [
+            ["A flexible environment where I can experiment", "creative"],
+            ["A quiet environment where I can concentrate", "logical"],
+            ["A structured environment with clear goals", "practical"],
+            ["An energetic environment with other people", "social"]
+        ]
+    },
+
+    {
+        question: "Someone gives you a completely blank notebook. What do you do?",
+        options: [
+            ["Fill it with drawings, ideas and creative concepts", "creative"],
+            ["Use it to organize thoughts, notes and information", "logical"],
+            ["Turn it into a planner or useful task book", "practical"],
+            ["Use it to write memories and things about people", "social"]
+        ]
+    },
+
+    {
+        question: "What motivates you the most?",
+        options: [
+            ["Freedom to express myself", "creative"],
+            ["Understanding how things work", "logical"],
+            ["Achieving clear and useful results", "practical"],
+            ["Connecting with other people", "social"]
+        ]
+    },
+
+    {
+        question: "When learning something new, what do you prefer?",
+        options: [
+            ["Experimenting and trying things differently", "creative"],
+            ["Understanding the theory behind it", "logical"],
+            ["Practicing it in a real situation", "practical"],
+            ["Learning together with other people", "social"]
+        ]
+    },
+
+    {
+        question: "Your team has a project with no clear plan. What do you do?",
+        options: [
+            ["Suggest a creative direction for the project", "creative"],
+            ["Analyze the requirements and create a logical plan", "logical"],
+            ["Assign tasks and start getting things done", "practical"],
+            ["Make sure everyone communicates and participates", "social"]
+        ]
+    },
+
+    {
+        question: "Which compliment would make you happiest?",
+        options: [
+            ["You have a great imagination!", "creative"],
+            ["You are extremely intelligent!", "logical"],
+            ["You always know how to get things done!", "practical"],
+            ["You are really easy to talk to!", "social"]
+        ]
+    },
+
+    {
+        question: "You suddenly have an idea. What do you usually do?",
+        options: [
+            ["Explore the idea and develop it creatively", "creative"],
+            ["Analyze whether the idea makes sense", "logical"],
+            ["Think about how to turn it into something useful", "practical"],
+            ["Tell someone about it and discuss it", "social"]
+        ]
+    },
+
+    {
+        question: "What describes your approach to challenges?",
+        options: [
+            ["I try something new", "creative"],
+            ["I analyze the situation carefully", "logical"],
+            ["I focus on what needs to be done", "practical"],
+            ["I look for support and cooperation", "social"]
+        ]
+    },
+
+    {
+        question: "If you could master one skill instantly, which would you choose?",
+        options: [
+            ["Artistic or creative expression", "creative"],
+            ["Advanced problem solving", "logical"],
+            ["A valuable technical or practical skill", "practical"],
+            ["Communication and leadership", "social"]
+        ]
+    },
+
+    {
+        question: "How do you usually organize your day?",
+        options: [
+            ["I keep it flexible and follow my interests", "creative"],
+            ["I prioritize tasks according to importance", "logical"],
+            ["I make a clear to-do list", "practical"],
+            ["I plan around people and activities", "social"]
+        ]
+    },
+
+    {
+        question: "Which statement sounds most like you?",
+        options: [
+            ["I often see possibilities that others don't notice.", "creative"],
+            ["I like understanding the reason behind things.", "logical"],
+            ["I prefer solutions that work in the real world.", "practical"],
+            ["People and relationships are important to me.", "social"]
+        ]
+    }
+
+];
+
+
+/* =========================================
+   PERSONALITY DESCRIPTIONS
+========================================= */
+
+const personalityInfo = {
+
+    creative: {
+        name: "🎨 Creative Personality",
+        description:
+            "You are imaginative, curious and open to new possibilities. You enjoy expressing ideas, experimenting and finding original ways to approach situations."
+    },
+
+    logical: {
+        name: "🧩 Logical Personality",
+        description:
+            "You are analytical, thoughtful and curious about how things work. You like evidence, patterns, problem-solving and making well-reasoned decisions."
+    },
+
+    practical: {
+        name: "🔧 Practical Personality",
+        description:
+            "You are realistic, organized and action-oriented. You prefer useful solutions, clear goals and turning ideas into real-world results."
+    },
+
+    social: {
+        name: "🤝 Social Personality",
+        description:
+            "You are friendly, empathetic and communicative. You enjoy connecting with people, sharing experiences and working together."
+    }
+
+};
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let currentQuestion = 0;
+
+let userAnswers =
+    new Array(questions.length).fill(null);
+
+let scores = {
+    creative: 0,
+    logical: 0,
+    practical: 0,
+    social: 0
+};
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const startScreen =
+    document.getElementById("start-screen");
+
+const quizScreen =
+    document.getElementById("quiz-screen");
+
+const resultScreen =
+    document.getElementById("result-screen");
+
+const startButton =
+    document.getElementById("start-btn");
+
+const previousButton =
+    document.getElementById("previous-btn");
+
+const nextButton =
+    document.getElementById("next-btn");
+
+const restartButton =
+    document.getElementById("restart-btn");
+
+const questionText =
+    document.getElementById("question-text");
+
+const optionsContainer =
+    document.getElementById("options-container");
+
+const questionNumber =
+    document.getElementById("question-number");
+
+const progressBar =
+    document.getElementById("progress-bar");
+
+const scoreDisplay =
+    document.getElementById("score-display");
+
+
+/* =========================================
+   START QUIZ
+========================================= */
+
+startButton.addEventListener("click", function() {
+
+    startScreen.classList.remove("active");
+
+    quizScreen.classList.add("active");
+
+    currentQuestion = 0;
+
+    showQuestion();
+
+});
+
+
+/* =========================================
+   SHOW QUESTION
+========================================= */
+
+function showQuestion() {
+
+    const question =
+        questions[currentQuestion];
+
+    questionText.textContent =
+        question.question;
+
+    questionNumber.textContent =
+        `Question ${currentQuestion + 1} of ${questions.length}`;
+
+
+    const progress =
+        ((currentQuestion + 1) /
+        questions.length) * 100;
+
+    progressBar.style.width =
+        progress + "%";
+
+    scoreDisplay.textContent =
+        `Progress: ${Math.round(progress)}%`;
+
+
+    optionsContainer.innerHTML = "";
+
+
+    question.options.forEach(
+        function(option, index) {
+
+            const optionElement =
+                document.createElement("div");
+
+            optionElement.classList.add("option");
+
+
+            optionElement.innerHTML = `
+                <div class="option-letter">
+                    ${String.fromCharCode(65 + index)}
+                </div>
+
+                <div class="option-text">
+                    ${option[0]}
+                </div>
+            `;
+
+
+            if (
+                userAnswers[currentQuestion] === index
+            ) {
+
+                optionElement.classList.add("selected");
+
+            }
+
+
+            optionElement.addEventListener(
+                "click",
+                function() {
+
+                    selectOption(index);
+
+                }
+            );
+
+
+            optionsContainer.appendChild(
+                optionElement
+            );
+
+        }
+    );
+
+
+    previousButton.disabled =
+        currentQuestion === 0;
+
+    previousButton.style.opacity =
+        currentQuestion === 0
+            ? "0.5"
+            : "1";
+
+
+    if (
+        currentQuestion ===
+        questions.length - 1
+    ) {
+
+        nextButton.textContent =
+            "Finish Quiz ✓";
+
+    } else {
+
+        nextButton.textContent =
+            "Next →";
+
+    }
+
+}
+
+
+/* =========================================
+   SELECT ANSWER
+========================================= */
+
+function selectOption(index) {
+
+    userAnswers[currentQuestion] =
+        index;
+
+
+    const allOptions =
+        document.querySelectorAll(".option");
+
+
+    allOptions.forEach(
+        function(option, i) {
+
+            option.classList.toggle(
+                "selected",
+                i === index
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   NEXT
+========================================= */
+
+nextButton.addEventListener(
+    "click",
+    function() {
+
+        if (
+            userAnswers[currentQuestion] === null
+        ) {
+
+            alert(
+                "Please select an answer before continuing."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            currentQuestion <
+            questions.length - 1
+        ) {
+
+            currentQuestion++;
+
+            showQuestion();
+
+        } else {
+
+            calculateResult();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   PREVIOUS
+========================================= */
+
+previousButton.addEventListener(
+    "click",
+    function() {
+
+        if (currentQuestion > 0) {
+
+            currentQuestion--;
+
+            showQuestion();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   CALCULATE RESULT
+========================================= */
+
+function calculateResult() {
+
+    scores = {
+        creative: 0,
+        logical: 0,
+        practical: 0,
+        social: 0
+    };
+
+
+    userAnswers.forEach(
+        function(answer, index) {
+
+            if (answer !== null) {
+
+                const selectedType =
+                    questions[index]
+                    .options[answer][1];
+
+                scores[selectedType]++;
+
+            }
+
+        }
+    );
+
+
+    const total =
+        questions.length;
+
+
+    const percentages = {
+
+        creative:
+            Math.round(
+                (scores.creative / total) * 100
+            ),
+
+        logical:
+            Math.round(
+                (scores.logical / total) * 100
+            ),
+
+        practical:
+            Math.round(
+                (scores.practical / total) * 100
+            ),
+
+        social:
+            Math.round(
+                (scores.social / total) * 100
+            )
+
+    };
+
+
+    let highestType =
+        "creative";
+
+
+    Object.keys(scores).forEach(
+        function(type) {
+
+            if (
+                scores[type] >
+                scores[highestType]
+            ) {
+
+                highestType = type;
+
+            }
+
+        }
+    );
+
+
+    showResult(
+        highestType,
+        percentages
+    );
+
+}
+
+
+/* =========================================
+   SHOW RESULT
+========================================= */
+
+function showResult(
+    type,
+    percentages
+) {
+
+    quizScreen.classList.remove(
+        "active"
+    );
+
+    resultScreen.classList.add(
+        "active"
+    );
+
+
+    const personality =
+        personalityInfo[type];
+
+
+    document.getElementById(
+        "main-result"
+    ).textContent =
+        personality.name;
+
+
+    document.getElementById(
+        "result-description"
+    ).textContent =
+        personality.description;
+
+
+    document.getElementById(
+        "creative-percent"
+    ).textContent =
+        percentages.creative + "%";
+
+
+    document.getElementById(
+        "logical-percent"
+    ).textContent =
+        percentages.logical + "%";
+
+
+    document.getElementById(
+        "practical-percent"
+    ).textContent =
+        percentages.practical + "%";
+
+
+    document.getElementById(
+        "social-percent"
+    ).textContent =
+        percentages.social + "%";
+
+
+    setTimeout(function() {
+
+        document.getElementById(
+            "creative-bar"
+        ).style.width =
+            percentages.creative + "%";
+
+
+        document.getElementById(
+            "logical-bar"
+        ).style.width =
+            percentages.logical + "%";
+
+
+        document.getElementById(
+            "practical-bar"
+        ).style.width =
+            percentages.practical + "%";
+
+
+        document.getElementById(
+            "social-bar"
+        ).style.width =
+            percentages.social + "%";
+
+    }, 200);
+
+}
+
+
+/* =========================================
+   RESTART
+========================================= */
+
+restartButton.addEventListener(
+    "click",
+    function() {
+
+        currentQuestion = 0;
+
+
+        userAnswers =
+            new Array(
+                questions.length
+            ).fill(null);
+
+
+        scores = {
+            creative: 0,
+            logical: 0,
+            practical: 0,
+            social: 0
+        };
+
+
+        document.getElementById(
+            "creative-bar"
+        ).style.width = "0%";
+
+        document.getElementById(
+            "logical-bar"
+        ).style.width = "0%";
+
+        document.getElementById(
+            "practical-bar"
+        ).style.width = "0%";
+
+        document.getElementById(
+            "social-bar"
+        ).style.width = "0%";
+
+
+        resultScreen.classList.remove(
+            "active"
+        );
+
+        quizScreen.classList.add(
+            "active"
+        );
+
+
+        showQuestion();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
