@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Personality Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-700 flex items-center justify-center p-2.5 sm:p-5 text-slate-800 font-sans">
+
+<div class="w-full max-w-4xl overflow-hidden rounded-[18px] sm:rounded-[25px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.25)]">
+
+    <!-- START SCREEN -->
+    <section id="start-screen" class="block p-5 sm:p-8 md:p-11 text-center">
+        <div class="mb-4 text-6xl sm:text-7xl">🧠</div>
+
+        <h1 class="mb-4 text-3xl sm:text-4xl font-bold text-slate-800">
+            Interactive Personality Quiz
+        </h1>
+
+        <p class="mx-auto mb-8 max-w-2xl text-base sm:text-[17px] leading-7 text-slate-500">
+            Answer 15 questions and discover which personality style is strongest in you.
+            Are you Creative, Logical, Practical, or Social?
+        </p>
+
+        <div class="mb-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            <div class="rounded-2xl border-2 border-pink-300 bg-slate-50 p-4 sm:p-5 transition duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+                <span class="text-3xl sm:text-4xl">🎨</span>
+                <h3 class="my-2 text-base sm:text-[17px] font-bold">Creative</h3>
+                <p class="text-xs leading-5 text-slate-500">Imaginative, curious and innovative</p>
+            </div>
+
+            <div class="rounded-2xl border-2 border-indigo-400 bg-slate-50 p-4 sm:p-5 transition duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+                <span class="text-3xl sm:text-4xl">🧩</span>
+                <h3 class="my-2 text-base sm:text-[17px] font-bold">Logical</h3>
+                <p class="text-xs leading-5 text-slate-500">Analytical, thoughtful and rational</p>
+            </div>
+
+            <div class="rounded-2xl border-2 border-emerald-400 bg-slate-50 p-4 sm:p-5 transition duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+                <span class="text-3xl sm:text-4xl">🔧</span>
+                <h3 class="my-2 text-base sm:text-[17px] font-bold">Practical</h3>
+                <p class="text-xs leading-5 text-slate-500">Organized, reliable and action-oriented</p>
+            </div>
+
+            <div class="rounded-2xl border-2 border-amber-400 bg-slate-50 p-4 sm:p-5 transition duration-300 hover:-translate-y-1.5 hover:shadow-lg">
+                <span class="text-3xl sm:text-4xl">🤝</span>
+                <h3 class="my-2 text-base sm:text-[17px] font-bold">Social</h3>
+                <p class="text-xs leading-5 text-slate-500">Friendly, empathetic and communicative</p>
+            </div>
+        </div>
+
+        <button id="start-btn"
+            class="rounded-xl bg-gradient-to-br from-indigo-500 to-purple-700 px-6 py-3.5 text-base font-bold text-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(102,126,234,0.4)] focus:outline-none focus:ring-4 focus:ring-indigo-200">
+            Start Quiz
+        </button>
+    </section>
+
+    <!-- QUIZ SCREEN -->
+    <section id="quiz-screen" class="hidden p-5 sm:p-8 md:p-11">
+        <div class="mb-3 flex items-center justify-between gap-4 font-bold text-slate-500">
+            <span id="question-number">Question 1 of 15</span>
+            <span id="score-display">Progress: 0%</span>
+        </div>
+
+        <div class="mb-8 h-2.5 w-full overflow-hidden rounded-full bg-slate-200">
+            <div id="progress-bar"
+                class="h-full w-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-700 transition-all duration-500 ease-out"></div>
+        </div>
+
+        <div class="min-h-[380px] sm:min-h-[350px]">
+            <h2 id="question-text"
+                class="mb-7 text-[22px] sm:text-[27px] font-bold leading-relaxed text-slate-800">
+                Question will appear here
+            </h2>
+
+            <div id="options-container" class="grid gap-3.5"></div>
+        </div>
+
+        <div class="mt-7 flex items-center justify-between gap-3">
+            <button id="previous-btn" disabled
+                class="rounded-xl bg-slate-200 px-4 py-3 text-sm sm:px-6 sm:py-3.5 sm:text-base font-bold text-slate-600 transition duration-300 hover:bg-slate-300 focus:outline-none focus:ring-4 focus:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-50">
+                ← Previous
+            </button>
+
+            <button id="next-btn"
+                class="rounded-xl bg-gradient-to-br from-indigo-500 to-purple-700 px-4 py-3 text-sm sm:px-6 sm:py-3.5 sm:text-base font-bold text-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(102,126,234,0.4)] focus:outline-none focus:ring-4 focus:ring-indigo-200">
+                Next →
+            </button>
+        </div>
+    </section>
+
+    <!-- RESULT SCREEN -->
+    <section id="result-screen" class="hidden p-5 sm:p-8 md:p-11 text-center">
+        <div class="mb-2 text-6xl sm:text-[65px]">🏆</div>
+
+        <h1 class="mb-3 text-3xl sm:text-4xl font-bold text-slate-800">
+            Your Personality Result
+        </h1>
+
+        <p class="mb-3 text-slate-500">
+            Your strongest personality style is:
+        </p>
+
+        <div id="main-result"
+            class="mb-4 bg-gradient-to-br from-indigo-500 to-purple-700 bg-clip-text text-4xl sm:text-[42px] font-bold text-transparent">
+            Creative
+        </div>
+
+        <p id="result-description"
+            class="mx-auto mb-8 max-w-2xl text-base leading-7 text-slate-600">
+            Description
+        </p>
+
+        <div class="mb-7 text-left">
+            <div class="mb-5">
+                <div class="mb-2 flex justify-between font-bold">
+                    <span>🎨 Creative</span>
+                    <span id="creative-percent">0%</span>
+                </div>
+                <div class="h-3.5 w-full overflow-hidden rounded-full bg-slate-200">
+                    <div id="creative-bar" class="h-full w-0 rounded-full bg-pink-400 transition-all duration-1000 ease-out"></div>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <div class="mb-2 flex justify-between font-bold">
+                    <span>🧩 Logical</span>
+                    <span id="logical-percent">0%</span>
+                </div>
+                <div class="h-3.5 w-full overflow-hidden rounded-full bg-slate-200">
+                    <div id="logical-bar" class="h-full w-0 rounded-full bg-indigo-500 transition-all duration-1000 ease-out"></div>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <div class="mb-2 flex justify-between font-bold">
+                    <span>🔧 Practical</span>
+                    <span id="practical-percent">0%</span>
+                </div>
+                <div class="h-3.5 w-full overflow-hidden rounded-full bg-slate-200">
+                    <div id="practical-bar" class="h-full w-0 rounded-full bg-emerald-500 transition-all duration-1000 ease-out"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="mb-2 flex justify-between font-bold">
+                    <span>🤝 Social</span>
+                    <span id="social-percent">0%</span>
+                </div>
+                <div class="h-3.5 w-full overflow-hidden rounded-full bg-slate-200">
+                    <div id="social-bar" class="h-full w-0 rounded-full bg-amber-500 transition-all duration-1000 ease-out"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6 rounded-2xl bg-indigo-50 p-5 text-left text-slate-600">
+            <h3 class="mb-2 font-bold text-slate-800">About Your Result</h3>
+            <p>
+                This quiz is designed for entertainment and self-reflection.
+                Your personality can contain characteristics from multiple categories.
+            </p>
+        </div>
+
+        <button id="restart-btn"
+            class="rounded-xl bg-gradient-to-br from-indigo-500 to-purple-700 px-6 py-3.5 text-base font-bold text-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(102,126,234,0.4)] focus:outline-none focus:ring-4 focus:ring-indigo-200">
+            Take Quiz Again
+        </button>
+    </section>
+</div>
+
+<script>
+const questions = [
+    {
+        question: "You have a free weekend. What would you most likely do?",
+        options: [
+            ["Start a creative project or explore a new idea", "creative"],
+            ["Solve puzzles, read or learn something interesting", "logical"],
+            ["Complete useful tasks or work on a personal project", "practical"],
+            ["Meet friends or spend time with other people", "social"]
+        ]
+    },
+    {
+        question: "When facing a difficult problem, what is your first reaction?",
+        options: [
+            ["Think of unusual and imaginative solutions", "creative"],
+            ["Break the problem into smaller logical parts", "logical"],
+            ["Look for the quickest solution that actually works", "practical"],
+            ["Ask others for their opinions and experiences", "social"]
+        ]
+    },
+    {
+        question: "Which type of activity sounds most enjoyable?",
+        options: [
+            ["Drawing, designing, writing or creating something", "creative"],
+            ["Strategy games, puzzles or challenging problems", "logical"],
+            ["Building, fixing or organizing something", "practical"],
+            ["Parties, group activities or conversations", "social"]
+        ]
+    },
+    {
+        question: "How do you usually make an important decision?",
+        options: [
+            ["I imagine different possibilities", "creative"],
+            ["I compare facts and evidence", "logical"],
+            ["I choose what seems most useful and realistic", "practical"],
+            ["I consider how it will affect people", "social"]
+        ]
+    },
+    {
+        question: "What kind of environment helps you work best?",
+        options: [
+            ["A flexible environment where I can experiment", "creative"],
+            ["A quiet environment where I can concentrate", "logical"],
+            ["A structured environment with clear goals", "practical"],
+            ["An energetic environment with other people", "social"]
+        ]
+    },
+    {
+        question: "Someone gives you a completely blank notebook. What do you do?",
+        options: [
+            ["Fill it with drawings, ideas and creative concepts", "creative"],
+            ["Use it to organize thoughts, notes and information", "logical"],
+            ["Turn it into a planner or useful task book", "practical"],
+            ["Use it to write memories and things about people", "social"]
+        ]
+    },
+    {
+        question: "What motivates you the most?",
+        options: [
+            ["Freedom to express myself", "creative"],
+            ["Understanding how things work", "logical"],
+            ["Achieving clear and useful results", "practical"],
+            ["Connecting with other people", "social"]
+        ]
+    },
+    {
+        question: "When learning something new, what do you prefer?",
+        options: [
+            ["Experimenting and trying things differently", "creative"],
+            ["Understanding the theory behind it", "logical"],
+            ["Practicing it in a real situation", "practical"],
+            ["Learning together with other people", "social"]
+        ]
+    },
+    {
+        question: "Your team has a project with no clear plan. What do you do?",
+        options: [
+            ["Suggest a creative direction for the project", "creative"],
+            ["Analyze the requirements and create a logical plan", "logical"],
+            ["Assign tasks and start getting things done", "practical"],
+            ["Make sure everyone communicates and participates", "social"]
+        ]
+    },
+    {
+        question: "Which compliment would make you happiest?",
+        options: [
+            ["You have a great imagination!", "creative"],
+            ["You are extremely intelligent!", "logical"],
+            ["You always know how to get things done!", "practical"],
+            ["You are really easy to talk to!", "social"]
+        ]
+    },
+    {
+        question: "You suddenly have an idea. What do you usually do?",
+        options: [
+            ["Explore the idea and develop it creatively", "creative"],
+            ["Analyze whether the idea makes sense", "logical"],
+            ["Think about how to turn it into something useful", "practical"],
+            ["Tell someone about it and discuss it", "social"]
+        ]
+    },
+    {
+        question: "What describes your approach to challenges?",
+        options: [
+            ["I try something new", "creative"],
+            ["I analyze the situation carefully", "logical"],
+            ["I focus on what needs to be done", "practical"],
+            ["I look for support and cooperation", "social"]
+        ]
+    },
+    {
+        question: "If you could master one skill instantly, which would you choose?",
+        options: [
+            ["Artistic or creative expression", "creative"],
+            ["Advanced problem solving", "logical"],
+            ["A valuable technical or practical skill", "practical"],
+            ["Communication and leadership", "social"]
+        ]
+    },
+    {
+        question: "How do you usually organize your day?",
+        options: [
+            ["I keep it flexible and follow my interests", "creative"],
+            ["I prioritize tasks according to importance", "logical"],
+            ["I make a clear to-do list", "practical"],
+            ["I plan around people and activities", "social"]
+        ]
+    },
+    {
+        question: "Which statement sounds most like you?",
+        options: [
+            ["I often see possibilities that others don't notice.", "creative"],
+            ["I like understanding the reason behind things.", "logical"],
+            ["I prefer solutions that work in the real world.", "practical"],
+            ["People and relationships are important to me.", "social"]
+        ]
+    }
+];
+
+const personalityInfo = {
+    creative: {
+        name: "🎨 Creative Personality",
+        description: "You are imaginative, curious and open to new possibilities. You enjoy expressing ideas, experimenting and finding original ways to approach situations."
+    },
+    logical: {
+        name: "🧩 Logical Personality",
+        description: "You are analytical, thoughtful and curious about how things work. You like evidence, patterns, problem-solving and making well-reasoned decisions."
+    },
+    practical: {
+        name: "🔧 Practical Personality",
+        description: "You are realistic, organized and action-oriented. You prefer useful solutions, clear goals and turning ideas into real-world results."
+    },
+    social: {
+        name: "🤝 Social Personality",
+        description: "You are friendly, empathetic and communicative. You enjoy connecting with people, sharing experiences and working together."
+    }
+};
+
+let currentQuestion = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let scores = { creative: 0, logical: 0, practical: 0, social: 0 };
+
+const startScreen = document.getElementById("start-screen");
+const quizScreen = document.getElementById("quiz-screen");
+const resultScreen = document.getElementById("result-screen");
+const startButton = document.getElementById("start-btn");
+const previousButton = document.getElementById("previous-btn");
+const nextButton = document.getElementById("next-btn");
+const restartButton = document.getElementById("restart-btn");
+const questionText = document.getElementById("question-text");
+const optionsContainer = document.getElementById("options-container");
+const questionNumber = document.getElementById("question-number");
+const progressBar = document.getElementById("progress-bar");
+const scoreDisplay = document.getElementById("score-display");
+
+const baseOptionClasses = [
+    "group", "flex", "w-full", "items-center", "gap-4", "rounded-2xl",
+    "border-2", "border-slate-200", "bg-white", "p-4", "text-left",
+    "transition-all", "duration-300", "hover:-translate-y-0.5",
+    "hover:border-indigo-400", "hover:bg-indigo-50", "hover:shadow-md",
+    "focus:outline-none", "focus:ring-4", "focus:ring-indigo-100"
+];
+
+const letterBaseClasses = [
+    "flex", "h-10", "min-w-10", "items-center", "justify-center",
+    "rounded-full", "bg-slate-200", "font-bold", "text-slate-600",
+    "transition-colors", "duration-300"
+];
+
+function showQuestion() {
+    const question = questions[currentQuestion];
+
+    questionText.textContent = question.question;
+    questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
+    progressBar.style.width = `${progress}%`;
+    scoreDisplay.textContent = `Progress: ${Math.round(progress)}%`;
+
+    optionsContainer.innerHTML = "";
+
+    question.options.forEach((option, index) => {
+        const optionElement = document.createElement("button");
+        optionElement.type = "button";
+        optionElement.classList.add(...baseOptionClasses);
+
+        const letter = document.createElement("span");
+        letter.classList.add(...letterBaseClasses);
+        letter.textContent = String.fromCharCode(65 + index);
+
+        const text = document.createElement("span");
+        text.className = "text-base leading-6 text-slate-700";
+        text.textContent = option[0];
+
+        optionElement.appendChild(letter);
+        optionElement.appendChild(text);
+
+        if (userAnswers[currentQuestion] === index) {
+            optionElement.classList.add("border-indigo-500", "bg-indigo-50", "shadow-md");
+            letter.classList.remove("bg-slate-200", "text-slate-600");
+            letter.classList.add("bg-indigo-500", "text-white");
+        }
+
+        optionElement.addEventListener("click", () => selectOption(index));
+        optionsContainer.appendChild(optionElement);
+    });
+
+    previousButton.disabled = currentQuestion === 0;
+
+    nextButton.textContent =
+        currentQuestion === questions.length - 1 ? "Finish Quiz ✓" : "Next →";
+}
+
+function selectOption(index) {
+    userAnswers[currentQuestion] = index;
+    showQuestion();
+}
+
+startButton.addEventListener("click", () => {
+    startScreen.classList.add("hidden");
+    quizScreen.classList.remove("hidden");
+    currentQuestion = 0;
+    showQuestion();
+});
+
+nextButton.addEventListener("click", () => {
+    if (userAnswers[currentQuestion] === null) {
+        alert("Please select an answer before continuing.");
+        return;
+    }
+
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        showQuestion();
+    } else {
+        calculateResult();
+    }
+});
+
+previousButton.addEventListener("click", () => {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion();
+    }
+});
+
+function calculateResult() {
+    scores = { creative: 0, logical: 0, practical: 0, social: 0 };
+
+    userAnswers.forEach((answer, index) => {
+        if (answer !== null) {
+            const selectedType = questions[index].options[answer][1];
+            scores[selectedType]++;
+        }
+    });
+
+    const total = questions.length;
+
+    const percentages = {
+        creative: Math.round((scores.creative / total) * 100),
+        logical: Math.round((scores.logical / total) * 100),
+        practical: Math.round((scores.practical / total) * 100),
+        social: Math.round((scores.social / total) * 100)
+    };
+
+    let highestType = "creative";
+
+    Object.keys(scores).forEach(type => {
+        if (scores[type] > scores[highestType]) {
+            highestType = type;
+        }
+    });
+
+    showResult(highestType, percentages);
+}
+
+function showResult(type, percentages) {
+    quizScreen.classList.add("hidden");
+    resultScreen.classList.remove("hidden");
+
+    const personality = personalityInfo[type];
+
+    document.getElementById("main-result").textContent = personality.name;
+    document.getElementById("result-description").textContent = personality.description;
+
+    document.getElementById("creative-percent").textContent = `${percentages.creative}%`;
+    document.getElementById("logical-percent").textContent = `${percentages.logical}%`;
+    document.getElementById("practical-percent").textContent = `${percentages.practical}%`;
+    document.getElementById("social-percent").textContent = `${percentages.social}%`;
+
+    setTimeout(() => {
+        document.getElementById("creative-bar").style.width = `${percentages.creative}%`;
+        document.getElementById("logical-bar").style.width = `${percentages.logical}%`;
+        document.getElementById("practical-bar").style.width = `${percentages.practical}%`;
+        document.getElementById("social-bar").style.width = `${percentages.social}%`;
+    }, 200);
+}
+
+restartButton.addEventListener("click", () => {
+    currentQuestion = 0;
+    userAnswers = new Array(questions.length).fill(null);
+    scores = { creative: 0, logical: 0, practical: 0, social: 0 };
+
+    ["creative", "logical", "practical", "social"].forEach(type => {
+        document.getElementById(`${type}-bar`).style.width = "0%";
+    });
+
+    resultScreen.classList.add("hidden");
+    quizScreen.classList.remove("hidden");
+    showQuestion();
+});
+</script>
+
+</body>
+</html>
