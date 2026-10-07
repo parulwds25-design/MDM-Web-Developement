@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive FAQ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-cyan-50 font-sans p-5">
+  <div class="max-w-2xl mx-auto my-5">
+    <h1 class="text-center text-3xl font-bold text-cyan-700">Frequently Asked Questions</h1>
+    <p class="text-center text-slate-500 mt-1 mb-6">Web Development Basics - click a question to see the answer</p>
+
+    <!-- Each FAQ item = a question button + an answer box.
+         The answer has the Tailwind class "hidden" (display: none) so it is hidden at first. -->
+    <div class="bg-white rounded-lg shadow mb-3 overflow-hidden">
+      <button class="faq-question w-full flex justify-between items-center text-left px-5 py-4 font-bold text-teal-900 hover:bg-cyan-100">
+        What is HTML? <span class="icon text-2xl text-cyan-700">+</span>
+      </button>
+      <div class="faq-answer hidden px-5 pb-4 text-slate-600">HTML (HyperText Markup Language) is the standard language used to create the structure of a web page using tags such as headings, paragraphs, images and links.</div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow mb-3 overflow-hidden">
+      <button class="faq-question w-full flex justify-between items-center text-left px-5 py-4 font-bold text-teal-900 hover:bg-cyan-100">
+        What is CSS used for? <span class="icon text-2xl text-cyan-700">+</span>
+      </button>
+      <div class="faq-answer hidden px-5 pb-4 text-slate-600">CSS (Cascading Style Sheets) is used to style web pages. It controls colours, fonts, spacing and layout.</div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow mb-3 overflow-hidden">
+      <button class="faq-question w-full flex justify-between items-center text-left px-5 py-4 font-bold text-teal-900 hover:bg-cyan-100">
+        What is JavaScript? <span class="icon text-2xl text-cyan-700">+</span>
+      </button>
+      <div class="faq-answer hidden px-5 pb-4 text-slate-600">JavaScript is a programming language that makes web pages interactive, for example handling button clicks, validating forms and updating content without reloading.</div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow mb-3 overflow-hidden">
+      <button class="faq-question w-full flex justify-between items-center text-left px-5 py-4 font-bold text-teal-900 hover:bg-cyan-100">
+        What is Tailwind CSS? <span class="icon text-2xl text-cyan-700">+</span>
+      </button>
+      <div class="faq-answer hidden px-5 pb-4 text-slate-600">Tailwind CSS is a utility-first CSS framework. Instead of writing separate CSS, we apply small ready-made classes like <b>p-4</b> or <b>text-center</b> directly in the HTML.</div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow mb-3 overflow-hidden">
+      <button class="faq-question w-full flex justify-between items-center text-left px-5 py-4 font-bold text-teal-900 hover:bg-cyan-100">
+        What is the DOM? <span class="icon text-2xl text-cyan-700">+</span>
+      </button>
+      <div class="faq-answer hidden px-5 pb-4 text-slate-600">The DOM (Document Object Model) represents the web page as a tree of objects. JavaScript uses it to read and change the elements of the page.</div>
+    </div>
+
+    <p class="text-center text-sm text-slate-600 mt-6">Parul Wanjari - CD25029</p>
+  </div>
+
+  <script>
+    // Select all question buttons
+    const questions = document.querySelectorAll(".faq-question");
+
+    // Add a click event listener to every question
+    questions.forEach(function (question) {
+      question.addEventListener("click", function () {
+        const answer = question.nextElementSibling;   // the answer box right after the button
+        const icon = question.querySelector(".icon"); // the + / - sign
+
+        // toggle() removes the class "hidden" if present, adds it if missing
+        answer.classList.toggle("hidden");
+
+        // Is the answer visible now?
+        const isOpen = !answer.classList.contains("hidden");
+
+        // Change the icon and highlight the open question
+        icon.textContent = isOpen ? "-" : "+";
+        question.classList.toggle("bg-cyan-100", isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
