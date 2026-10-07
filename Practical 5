@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spice Garden | Food Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-amber-50 text-slate-800">
+  <header class="bg-slate-900 text-white">
+    <div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-amber-300">
+          Spice Garden
+        </p>
+        <h1 class="text-2xl font-bold">Our Food Menu</h1>
+      </div>
+
+      <p class="rounded-lg bg-white/10 px-4 py-3" aria-live="polite">
+        Items: <span id="item-count">0</span>
+        <span class="mx-2">|</span>
+        Total: <span id="order-total">₹0</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-6 py-10">
+    <div class="mb-8 text-center">
+      <p class="font-semibold uppercase tracking-widest text-amber-700">
+        Freshly prepared
+      </p>
+      <h2 class="mt-2 text-3xl font-extrabold sm:text-4xl">Popular Dishes</h2>
+      <p class="mt-3 text-slate-600">
+        Explore our customer favorites, prepared fresh and served with care.
+      </p>
+    </div>
+
+    <section class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+      <!-- Garden Pizza -->
+      <article class="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div class="aspect-video bg-orange-100">
+          <svg viewBox="0 0 400 225" class="h-full w-full" role="img" aria-label="Illustration of a vegetable pizza" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#ffedd5"/>
+            <circle cx="200" cy="110" r="88" fill="#a16207"/>
+            <circle cx="200" cy="110" r="77" fill="#facc15"/>
+            <circle cx="200" cy="110" r="65" fill="#ef4444"/>
+            <circle cx="200" cy="110" r="57" fill="#fde68a"/>
+            <circle cx="167" cy="81" r="9" fill="#dc2626"/>
+            <circle cx="214" cy="75" r="9" fill="#dc2626"/>
+            <circle cx="235" cy="117" r="9" fill="#dc2626"/>
+            <circle cx="177" cy="137" r="9" fill="#dc2626"/>
+            <circle cx="213" cy="151" r="9" fill="#dc2626"/>
+            <path d="M192 92c12-13 24-8 23 2-1 10-15 13-23-2z" fill="#15803d"/>
+            <path d="M145 109c12-13 24-8 23 2-1 10-15 13-23-2z" fill="#15803d"/>
+            <path d="M228 91c12-13 24-8 23 2-1 10-15 13-23-2z" fill="#15803d"/>
+            <text x="200" y="213" text-anchor="middle" font-size="18" font-family="Arial" font-weight="bold" fill="#7c2d12">GARDEN PIZZA</text>
+          </svg>
+        </div>
+        <div class="flex flex-1 flex-col p-5">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-bold">Garden Pizza</h3>
+            <span class="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-800">₹299</span>
+          </div>
+          <p class="mt-3 flex-1 text-sm leading-6 text-slate-600">
+            Thin-crust pizza topped with fresh vegetables, cheese, and tomato sauce.
+          </p>
+          <button type="button" class="add-button mt-5 rounded-lg bg-amber-600 px-4 py-3 font-semibold text-white transition hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300" data-price="299">
+            Add to order
+          </button>
+        </div>
+      </article>
+
+      <!-- Paneer Butter Masala -->
+      <article class="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div class="aspect-video bg-red-100">
+          <svg viewBox="0 0 400 225" class="h-full w-full" role="img" aria-label="Illustration of paneer curry" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#fee2e2"/>
+            <ellipse cx="200" cy="122" rx="125" ry="68" fill="#334155"/>
+            <ellipse cx="200" cy="112" rx="112" ry="57" fill="#f8fafc"/>
+            <ellipse cx="200" cy="112" rx="96" ry="44" fill="#c2410c"/>
+            <rect x="143" y="88" width="30" height="25" rx="5" fill="#fef3c7" transform="rotate(-12 143 88)"/>
+            <rect x="186" y="76" width="30" height="25" rx="5" fill="#fef3c7" transform="rotate(8 186 76)"/>
+            <rect x="225" y="93" width="30" height="25" rx="5" fill="#fef3c7" transform="rotate(-8 225 93)"/>
+            <rect x="165" y="119" width="30" height="25" rx="5" fill="#fef3c7" transform="rotate(10 165 119)"/>
+            <rect x="211" y="122" width="30" height="25" rx="5" fill="#fef3c7" transform="rotate(-8 211 122)"/>
+            <circle cx="190" cy="105" r="4" fill="#15803d"/>
+            <circle cx="230" cy="129" r="4" fill="#15803d"/>
+            <text x="200" y="211" text-anchor="middle" font-size="16" font-family="Arial" font-weight="bold" fill="#7f1d1d">PANEER CURRY</text>
+          </svg>
+        </div>
+        <div class="flex flex-1 flex-col p-5">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-bold">Paneer Butter Masala</h3>
+            <span class="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-800">₹249</span>
+          </div>
+          <p class="mt-3 flex-1 text-sm leading-6 text-slate-600">
+            Soft paneer cubes simmered in a rich, creamy tomato and butter gravy.
+          </p>
+          <button type="button" class="add-button mt-5 rounded-lg bg-amber-600 px-4 py-3 font-semibold text-white transition hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300" data-price="249">
+            Add to order
+          </button>
+        </div>
+      </article>
+
+      <!-- Veg Burger -->
+      <article class="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div class="aspect-video bg-yellow-100">
+          <svg viewBox="0 0 400 225" class="h-full w-full" role="img" aria-label="Illustration of a vegetable burger" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#fef9c3"/>
+            <ellipse cx="200" cy="172" rx="112" ry="18" fill="#d6d3d1"/>
+            <path d="M105 117c0-48 42-76 95-76s95 28 95 76H105z" fill="#f59e0b"/>
+            <path d="M111 111c20 12 38-11 58 0s39 10 60 0 38 11 60 0v15H111z" fill="#15803d"/>
+            <path d="M112 127h176l-12 17H124z" fill="#facc15"/>
+            <path d="M123 146h154c-4 17-24 25-77 25s-73-8-77-25z" fill="#d97706"/>
+            <circle cx="160" cy="65" r="4" fill="#fff7ed"/>
+            <circle cx="190" cy="55" r="4" fill="#fff7ed"/>
+            <circle cx="224" cy="66" r="4" fill="#fff7ed"/>
+            <circle cx="250" cy="83" r="4" fill="#fff7ed"/>
+            <circle cx="175" cy="83" r="4" fill="#fff7ed"/>
+            <text x="200" y="211" text-anchor="middle" font-size="18" font-family="Arial" font-weight="bold" fill="#713f12">VEG BURGER</text>
+          </svg>
+        </div>
+        <div class="flex flex-1 flex-col p-5">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-bold">Classic Veg Burger</h3>
+            <span class="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-800">₹179</span>
+          </div>
+          <p class="mt-3 flex-1 text-sm leading-6 text-slate-600">
+            A crispy vegetable patty with lettuce, tomato, cheese, and house sauce.
+          </p>
+          <button type="button" class="add-button mt-5 rounded-lg bg-amber-600 px-4 py-3 font-semibold text-white transition hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300" data-price="179">
+            Add to order
+          </button>
+        </div>
+      </article>
+
+      <!-- Hakka Noodles -->
+      <article class="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div class="aspect-video bg-amber-100">
+          <svg viewBox="0 0 400 225" class="h-full w-full" role="img" aria-label="Illustration of a bowl of noodles" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#fef3c7"/>
+            <path d="M92 102h216l-22 83c-4 14-18 23-34 23h-104c-16 0-30-9-34-23z" fill="#dc2626"/>
+            <ellipse cx="200" cy="103" rx="108" ry="39" fill="#fff7ed"/>
+            <ellipse cx="200" cy="104" rx="93" ry="29" fill="#fbbf24"/>
+            <path d="M127 99c28-23 49 25 77 0s48 24 76 0" fill="none" stroke="#fef3c7" stroke-width="7" stroke-linecap="round"/>
+            <path d="M133 109c28-23 49 25 77 0s48 24 76 0" fill="none" stroke="#fff7ed" stroke-width="6" stroke-linecap="round"/>
+            <path d="M144 86l12 14m48-24 9 16m43-8-13 15m-43 19 9 16" stroke="#15803d" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="173" cy="91" r="6" fill="#ef4444"/>
+            <circle cx="231" cy="112" r="6" fill="#ef4444"/>
+            <text x="200" y="211" text-anchor="middle" font-size="18" font-family="Arial" font-weight="bold" fill="#7c2d12">HAKKA NOODLES</text>
+          </svg>
+        </div>
+        <div class="flex flex-1 flex-col p-5">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-bold">Hakka Noodles</h3>
+            <span class="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-800">₹199</span>
+          </div>
+          <p class="mt-3 flex-1 text-sm leading-6 text-slate-600">
+            Stir-fried noodles tossed with crunchy vegetables and savory seasoning.
+          </p>
+          <button type="button" class="add-button mt-5 rounded-lg bg-amber-600 px-4 py-3 font-semibold text-white transition hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300" data-price="199">
+            Add to order
+          </button>
+        </div>
+      </article>
+
+      <!-- Veg Biryani -->
+      <article class="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div class="aspect-video bg-green-100">
+          <svg viewBox="0 0 400 225" class="h-full w-full" role="img" aria-label="Illustration of vegetable biryani" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#dcfce7"/>
+            <path d="M100 110h200c-8 60-41 83-100 83s-92-23-100-83z" fill="#b45309"/>
+            <ellipse cx="200" cy="110" rx="101" ry="39" fill="#fff7ed"/>
+            <path d="M120 107c25-18 38 17 62 0s38 16 61 0 28 12 38 4" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+            <path d="M128 118c20-14 36 14 57 0s39 13 60 0 27 11 34 4" fill="none" stroke="#fef3c7" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="158" cy="96" r="7" fill="#16a34a"/>
+            <circle cx="221" cy="99" r="7" fill="#16a34a"/>
+            <circle cx="190" cy="125" r="7" fill="#ef4444"/>
+            <circle cx="246" cy="119" r="7" fill="#16a34a"/>
+            <path d="M179 83l7-12m39 23 9-13m-71 34-8 12" stroke="#15803d" stroke-width="4" stroke-linecap="round"/>
+            <text x="200" y="215" text-anchor="middle" font-size="18" font-family="Arial" font-weight="bold" fill="#14532d">VEG BIRYANI</text>
+          </svg>
+        </div>
+        <div class="flex flex-1 flex-col p-5">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-bold">Veg Biryani</h3>
+            <span class="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-800">₹229</span>
+          </div>
+          <p class="mt-3 flex-1 text-sm leading-6 text-slate-600">
+            Fragrant basmati rice cooked with vegetables, spices, and fresh herbs.
+          </p>
+          <button type="button" class="add-button mt-5 rounded-lg bg-amber-600 px-4 py-3 font-semibold text-white transition hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300" data-price="229">
+            Add to order
+          </button>
+        </div>
+      </article>
+
+      <!-- Chocolate Sundae -->
+      <article class="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div class="aspect-video bg-pink-100">
+          <svg viewBox="0 0 400 225" class="h-full w-full" role="img" aria-label="Illustration of a chocolate sundae" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#fce7f3"/>
+            <path d="M143 119h114l-17 73c-2 9-10 15-20 15h-40c-10 0-18-6-20-15z" fill="#fb7185"/>
+            <ellipse cx="200" cy="119" rx="57" ry="17" fill="#fda4af"/>
+            <circle cx="173" cy="100" r="31" fill="#fff7ed"/>
+            <circle cx="220" cy="99" r="33" fill="#78350f"/>
+            <circle cx="198" cy="75" r="31" fill="#f8fafc"/>
+            <path d="M188 49c-5 20 20 18 11 37m12-36c-8 14 14 18 8 31" fill="none" stroke="#7c2d12" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="179" cy="98" r="4" fill="#7c2d12"/>
+            <circle cx="221" cy="96" r="4" fill="#fef3c7"/>
+            <text x="200" y="218" text-anchor="middle" font-size="18" font-family="Arial" font-weight="bold" fill="#831843">CHOCOLATE SUNDAE</text>
+          </svg>
+        </div>
+        <div class="flex flex-1 flex-col p-5">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="text-xl font-bold">Chocolate Sundae</h3>
+            <span class="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-800">₹149</span>
+          </div>
+          <p class="mt-3 flex-1 text-sm leading-6 text-slate-600">
+            Vanilla ice cream topped with chocolate sauce and crunchy toppings.
+          </p>
+          <button type="button" class="add-button mt-5 rounded-lg bg-amber-600 px-4 py-3 font-semibold text-white transition hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-amber-300" data-price="149">
+            Add to order
+          </button>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="mt-10 bg-slate-900 px-6 py-5 text-center text-sm text-slate-300">
+    © 2026 Spice Garden. Fresh food, made with care.
+  </footer>
+
+  <script>
+    let itemCount = 0;
+    let orderTotal = 0;
+
+    const itemCountDisplay = document.getElementById("item-count");
+    const orderTotalDisplay = document.getElementById("order-total");
+
+    document.querySelectorAll(".add-button").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const price = Number(button.dataset.price);
+
+        itemCount++;
+        orderTotal += price;
+
+        itemCountDisplay.textContent = itemCount;
+        orderTotalDisplay.textContent = "₹" + orderTotal;
+      });
+    });
+  </script>
+</body>
+</html>
