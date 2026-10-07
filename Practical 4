@@ -3,223 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reusable UI Components - Tailwind CSS</title>
-
+  <title>Student Grade Calculator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-indigo-100 font-sans p-5">
 
-<body class="bg-gradient-to-br from-violet-400 via-Blue-300 to-cyan-200 min-h-screen">
+  <div class="max-w-md mx-auto my-5 bg-white p-7 rounded-xl shadow-lg">
+    <h1 class="text-center text-2xl font-bold text-indigo-800">Student Grade Calculator</h1>
+    <p class="text-center text-slate-500 text-sm mb-5">Enter marks out of 100 for each subject</p>
 
-  <!-- ================= NAVBAR ================= -->
+    <label for="name" class="block mt-3 font-bold text-sm">Student Name</label>
+    <input type="text" id="name" placeholder="Enter name" class="w-full mt-1 p-2.5 border-2 border-indigo-200 rounded-md">
 
-  <nav class="bg-blue-600 text-white p-4">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold">Sakshi (IT25047)</h1>
+    <label for="m1" class="block mt-3 font-bold text-sm">Web Fundamentals</label>
+    <input type="number" id="m1" placeholder="Marks (0-100)" class="w-full mt-1 p-2.5 border-2 border-indigo-200 rounded-md">
+    <label for="m2" class="block mt-3 font-bold text-sm">Python Programming</label>
+    <input type="number" id="m2" placeholder="Marks (0-100)" class="w-full mt-1 p-2.5 border-2 border-indigo-200 rounded-md">
+    <label for="m3" class="block mt-3 font-bold text-sm">Data Structures</label>
+    <input type="number" id="m3" placeholder="Marks (0-100)" class="w-full mt-1 p-2.5 border-2 border-indigo-200 rounded-md">
+    <label for="m4" class="block mt-3 font-bold text-sm">Mathematics</label>
+    <input type="number" id="m4" placeholder="Marks (0-100)" class="w-full mt-1 p-2.5 border-2 border-indigo-200 rounded-md">
+    <label for="m5" class="block mt-3 font-bold text-sm">Indian Constitution</label>
+    <input type="number" id="m5" placeholder="Marks (0-100)" class="w-full mt-1 p-2.5 border-2 border-indigo-200 rounded-md">
 
-      <div class="space-x-6">
-        <a href="#" class="hover:text-yellow-300">Home</a>
-        <a href="#" class="hover:text-yellow-300">Services</a>
-        <a href="#" class="hover:text-yellow-300">Gallery</a>
-        <a href="#" class="hover:text-yellow-300">Contact</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- ================= HEADING ================= -->
-
-  <section class="text-center py-8">
-    <h2 class="text-3xl font-bold">Paintings</h2>
-    <p class="text-green-1000">
-      A visual art form where artists apply pigments and colors to flat surfaces like canvas, paper, or walls using brushes, knives, or sponges.
-    </p>
-  </section>
-
-  <!-- ================= CARD SECTION ================= -->
-
-  <section class="max-w-6xl mx-auto px-5">
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- Card 1 -->
-
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-
-        <img
-          src="abstractp.jpg"
-          alt="Abstract Painting"
-          class="w-full h-48 object-cover"
-        >
-
-        <div class="p-5">
-
-          <h3 class="text-xl font-bold mb-2">
-            Abstract Painting
-          </h3>
-          
-          <p class="text-gray-600 mb-4">
-            Abstract: is a style of art that uses colors, shapes, and brush marks to show feelings instead of real-life objects
-          </p>
-
-          <button class="bg-gradient-to-r from-purple-600 via-blue-500 to-green-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:from-purple-700 hover:via-pink-600 hover:to-rose-600 hover:scale-105 hover:animate-pulse hover:shadow-2xl transition-all duration-1000">
-            Add to cart
-          </button>
-
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-
-        <img
-          src="cubism.jpg"
-          alt="Cubism Painting"
-          class="w-full h-48 object-cover"
-        >
-
-        <div class="p-5">
-
-          <h3 class="text-xl font-bold mb-2">
-            Cubism Painting
-          </h3>
-
-          <p class="text-gray-600 mb-4">
-            Cubism: break subjects down into geometric cubes, shapes, and multiple overlapping perspectives at the same time.
-          </p>
-
-          <button class="bg-gradient-to-r from-purple-600 via-blue-500 to-green-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:from-purple-700 hover:via-pink-600 hover:to-rose-600 hover:scale-105 hover:animate-pulse hover:shadow-2xl transition-all duration-1000">
-            Add to cart
-          </button>
-
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-
-        <img
-          src="famous expressing p.jpg"
-          alt="Expressionism Painting"
-          class="w-full h-48 object-cover"
-        >
-
-        <div class="p-5">
-
-          <h3 class="text-xl font-bold mb-2">
-            Expressionism Painting
-          </h3>
-
-          <p class="text-gray-600 mb-4">
-            Expressionism: Distorts colors and shapes to show raw human feelings over clean accuracy.
-          </p>
-
-          <button class="bg-gradient-to-r from-purple-600 via-blue-500 to-green-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:from-purple-700 hover:via-pink-600 hover:to-rose-600 hover:scale-105 hover:animate-pulse hover:shadow-2xl transition-all duration-1000">
-            Add to cart
-          </button>
-
-        </div>
-      </div>
-      <!---card 4--->
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-
-        <img
-          src="surrealism.jpg"
-          alt="Surrealism Painting"
-          class="w-full h-48 object-cover"
-        >
-
-        <div class="p-5">
-
-          <h3 class="text-xl font-bold mb-2">
-            Surrealism Painting
-          </h3>
-
-          <p class="text-gray-600 mb-4">
-            Surrealism: Mixes dream worlds and bizarre logic into weird, lifelike scenes.
-          </p>
-
-          <button class="bg-gradient-to-r from-purple-600 via-blue-500 to-green-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:from-purple-700 hover:via-pink-600 hover:to-rose-600 hover:scale-105 hover:animate-pulse hover:shadow-2xl transition-all duration-1000">
-            Add to cart
-          </button>
-
-        </div>
-      </div>
-<!---card 5--->
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-
-        <img
-          src="pop art.webp"
-          alt="Pop Art Painting"
-          class="w-full h-48 object-cover"
-        >
-
-        <div class="p-5">
-
-          <h3 class="text-xl font-bold mb-2">
-           Pop Art Painting
-          </h3>
-
-          <p class="text-gray-600 mb-4">
-           Pop Art: Uses famous faces, consumer goods, and bright commercial print.
-          </p>
-
-          <button class="bg-gradient-to-r from-purple-600 via-blue-500 to-green-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:from-purple-700 hover:via-pink-600 hover:to-rose-600 hover:scale-105 hover:animate-pulse hover:shadow-2xl transition-all duration-1000">
-            Add to cart
-          </button>
-
-        </div>
-      </div>
-<!---card 6--->
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-
-        <img
-          src="impressionism.jpg"
-          alt=" Impressionism Painting"
-          class="w-full h-48 object-cover"
-        >
-
-        <div class="p-5">
-
-          <h3 class="text-xl font-bold mb-2">
-           Impressionism Painting
-          </h3>
-
-          <p class="text-gray-600 mb-4">
-           Impressionism: Uses short brush strokes and bright light to show a fleeting moment.
-          </p>
-
-          <button class="bg-gradient-to-r from-purple-600 via-blue-500 to-green-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:from-purple-700 hover:via-pink-600 hover:to-rose-600 hover:scale-105 hover:animate-pulse hover:shadow-2xl transition-all duration-1000">
-            Add to cart
-          </button>
-
-        </div>
-      </div>
+    <div class="flex gap-2.5 mt-5">
+      <button id="calcBtn" class="flex-1 py-3 rounded-md font-bold text-white bg-indigo-600 hover:bg-indigo-800">Calculate</button>
+      <button id="resetBtn" class="flex-1 py-3 rounded-md font-bold text-white bg-slate-500 hover:bg-slate-600">Reset</button>
     </div>
 
-  </section>
+    <!-- Validation message appears here -->
+    <p id="error" class="text-red-600 text-sm mt-3 min-h-5"></p>
 
- <!-- ================= FOOTER ================= -->
+    <!-- Result box: the Tailwind class "hidden" keeps it invisible until marks are valid -->
+    <div id="result" class="hidden mt-4 bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded space-y-1.5">
+      <p><b>Student:</b> <span id="rName"></span></p>
+      <p><b>Total:</b> <span id="rTotal"></span> / 500</p>
+      <p><b>Percentage:</b> <span id="rPercent"></span> %</p>
+      <p><b>Grade:</b> <span id="rGrade" class="text-2xl font-bold text-green-700"></span></p>
+      <p><b>Result:</b> <span id="rStatus"></span></p>
+    </div>
 
-<footer class="mt-10 bg-gradient-to-r from-gray-900 via-slate-800 to-black text-white">
-
-  <div class="max-w-6xl mx-auto py-8 text-center">
-
-    <h2 class="text-2xl font-bold">
-      Sakshi Bhalerao
-    </h2>
-
-    <p class="mt-2 text-gray-300">
-      Own a piece of this vibrant journey and let the color inspire you every day.
-    </p>
-
-    <p class="mt-4 text-gray-400">
-      © 2026 All Rights Reserved
-    </p>
-
+    <p class="text-center text-sm text-slate-600 mt-5">Parul Wanjari - CD25029</p>
   </div>
 
-</footer>
+  <script>
+    // Get the elements we need
+    const ids = ["m1", "m2", "m3", "m4", "m5"];
+    const errorBox = document.getElementById("error");
+    const resultBox = document.getElementById("result");
 
+    // Make an input look wrong (red) or normal (indigo) by changing Tailwind classes
+    function markInvalid(box) {
+      box.classList.remove("border-indigo-200");
+      box.classList.add("border-red-500", "bg-red-50");
+    }
+    function markNormal(box) {
+      box.classList.remove("border-red-500", "bg-red-50");
+      box.classList.add("border-indigo-200");
+    }
+
+    // Function to decide grade from percentage
+    function getGrade(p) {
+      if (p >= 90) return "O (Outstanding)";
+      if (p >= 80) return "A+ (Excellent)";
+      if (p >= 70) return "A (Very Good)";
+      if (p >= 60) return "B (Good)";
+      if (p >= 50) return "C (Average)";
+      if (p >= 40) return "D (Pass)";
+      return "F (Fail)";
+    }
+
+    // Runs when the Calculate button is clicked
+    document.getElementById("calcBtn").addEventListener("click", function () {
+      let total = 0;
+      let valid = true;
+      errorBox.textContent = "";
+      resultBox.classList.add("hidden");
+
+      for (let i = 0; i < ids.length; i++) {
+        const box = document.getElementById(ids[i]);
+        const value = box.value.trim();
+        markNormal(box);
+
+        // Validation: not empty, a number, between 0 and 100
+        if (value === "" || isNaN(value) || Number(value) < 0 || Number(value) > 100) {
+          markInvalid(box);
+          valid = false;
+        } else {
+          total += Number(value);
+        }
+      }
+
+      const name = document.getElementById("name").value.trim();
+      if (name === "") {
+        errorBox.textContent = "Please enter the student name.";
+        return;
+      }
+      if (!valid) {
+        errorBox.textContent = "Enter valid marks between 0 and 100 in all subjects (highlighted in red).";
+        return;
+      }
+
+      // Calculation
+      const percentage = (total / 500) * 100;
+      const grade = getGrade(percentage);
+      const failed = percentage < 40;
+
+      // Show the result on the page
+      document.getElementById("rName").textContent = name;
+      document.getElementById("rTotal").textContent = total;
+      document.getElementById("rPercent").textContent = percentage.toFixed(2);
+      document.getElementById("rGrade").textContent = grade;
+      document.getElementById("rStatus").textContent = failed ? "FAIL" : "PASS";
+      resultBox.classList.remove("hidden");
+    });
+
+    // Reset button clears everything
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      document.getElementById("name").value = "";
+      ids.forEach(function (id) {
+        const box = document.getElementById(id);
+        box.value = "";
+        markNormal(box);
+      });
+      errorBox.textContent = "";
+      resultBox.classList.add("hidden");
+    });
+  </script>
 </body>
 </html>
