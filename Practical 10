@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusDesk - Study Timer and Session Log</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
+
+  <!-- ===== Header ===== -->
+  <header class="max-w-5xl mx-auto px-4 pt-8 text-center">
+    <h1 class="text-3xl md:text-4xl font-extrabold">Focus<span class="text-emerald-400">Desk</span></h1>
+    <p class="text-slate-400 mt-2 text-sm md:text-base">
+      A Pomodoro study timer that logs your study sessions. Problem it solves: students lose track of how long they really study.
+    </p>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8">
+
+    <!-- ===== Statistics cards ===== -->
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+      <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
+        <p class="text-slate-400 text-sm">Sessions Today</p>
+        <p id="statSessions" class="text-3xl font-bold text-emerald-400">0</p>
+      </div>
+      <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
+        <p class="text-slate-400 text-sm">Minutes Focused Today</p>
+        <p id="statMinutes" class="text-3xl font-bold text-sky-400">0</p>
+      </div>
+      <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
+        <p class="text-slate-400 text-sm">All-time Sessions</p>
+        <p id="statTotal" class="text-3xl font-bold text-pink-400">0</p>
+      </div>
+    </section>
+
+    <!-- ===== Two columns on large screens: Timer | Log ===== -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+
+      <!-- Timer card -->
+      <section class="bg-slate-800 rounded-2xl p-6 border border-slate-700 text-center">
+        <!-- Mode buttons -->
+        <div class="flex justify-center gap-2">
+          <button id="focusTab" class="px-4 py-2 rounded-full text-sm font-semibold bg-emerald-500 text-slate-900">Focus 25 min</button>
+          <button id="breakTab" class="px-4 py-2 rounded-full text-sm font-semibold bg-slate-700 text-slate-200">Break 5 min</button>
+        </div>
+
+        <!-- Big time display -->
+        <p id="timeDisplay" class="text-7xl md:text-8xl font-mono font-bold my-8">25:00</p>
+
+        <!-- Subject input -->
+        <input id="subjectInput" type="text" placeholder="What are you studying? (e.g. Web Fundamentals)"
+               class="w-full bg-slate-900 border-2 border-slate-600 focus:border-emerald-400 outline-none rounded-lg px-4 py-3 text-center">
+        <p id="timerMsg" class="text-sm h-5 mt-2 text-amber-300"></p>
+
+        <!-- Control buttons -->
+        <div class="flex flex-wrap justify-center gap-3 mt-3">
+          <button id="startBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold px-6 py-3 rounded-lg">Start</button>
+          <button id="stopBtn" class="bg-sky-500 hover:bg-sky-400 text-slate-900 font-bold px-6 py-3 rounded-lg">Stop &amp; Log</button>
+          <button id="resetBtn" class="bg-slate-600 hover:bg-slate-500 font-bold px-6 py-3 rounded-lg">Reset</button>
+        </div>
+      </section>
+
+      <!-- Session log card -->
+      <section class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-bold">Session Log</h2>
+          <button id="clearBtn" class="text-sm text-red-400 hover:text-red-300 underline">Clear log</button>
+        </div>
+        <ul id="logList" class="mt-4 space-y-2 max-h-80 overflow-y-auto"></ul>
+        <p id="emptyMsg" class="text-slate-400 text-center mt-6">No sessions yet. Start your first focus session!</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="text-center text-slate-400 text-sm pb-8">
+    FocusDesk - built by Parul Wanjari - CD25029
+  </footer>
+
+  <script>
+    // ---------- Variables ----------
+    let mode = "focus";           // "focus" or "break"
+    let totalSeconds = 25 * 60;   // length of the current mode
+    let remaining = totalSeconds; // seconds left
+    let timerId = null;           // holds the setInterval id (null = not running)
+    let sessions = JSON.parse(localStorage.getItem("focusSessions")) || []; // saved log
+
+    // ---------- Get HTML elements ----------
+    const timeDisplay = document.getElementById("timeDisplay");
+    const subjectInput = document.getElementById("subjectInput");
+    const timerMsg = document.getElementById("timerMsg");
+    const startBtn = document.getElementById("startBtn");
+    const focusTab = document.getElementById("focusTab");
+    const breakTab = document.getElementById("breakTab");
+    const logList = document.getElementById("logList");
+    const emptyMsg = document.getElementById("emptyMsg");
+
+    // ---------- Show time as MM:SS ----------
+    function showTime() {
+      const m = String(Math.floor(remaining / 60)).padStart(2, "0");
+      const s = String(remaining % 60).padStart(2, "0");
+      timeDisplay.textContent = m + ":" + s;
+      document.title = m + ":" + s + " - FocusDesk";
+    }
+
+    // ---------- Switch between Focus and Break ----------
+    function setMode(newMode) {
+      clearInterval(timerId);
+      timerId = null;
+      startBtn.textContent = "Start";
+      mode = newMode;
+      totalSeconds = (mode === "focus" ? 25 : 5) * 60;
+      remaining = totalSeconds;
+      // change button colours to show the active mode
+      focusTab.className = "px-4 py-2 rounded-full text-sm font-semibold " + (mode === "focus" ? "bg-emerald-500 text-slate-900" : "bg-slate-700 text-slate-200");
+      breakTab.className = "px-4 py-2 rounded-full text-sm font-semibold " + (mode === "break" ? "bg-sky-500 text-slate-900" : "bg-slate-700 text-slate-200");
+      showTime();
+    }
+
+    // ---------- Save a finished session ----------
+    function logSession(minutes) {
+      const now = new Date();
+      sessions.unshift({
+        subject: subjectInput.value.trim(),
+        minutes: minutes,
+        time: now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        day: now.toDateString()
+      });
+      localStorage.setItem("focusSessions", JSON.stringify(sessions));
+      renderLog();
+    }
+
+    // ---------- Draw the log list and statistics ----------
+    function renderLog() {
+      logList.innerHTML = "";
+      sessions.forEach(function (s) {
+        const li = document.createElement("li");
+        li.className = "flex justify-between bg-slate-900 rounded-lg px-4 py-3 text-sm";
+        li.innerHTML = "<span><b>" + s.subject + "</b><br><span class='text-slate-400'>" + s.day + ", " + s.time + "</span></span>" +
+                       "<span class='text-emerald-400 font-bold self-center'>" + s.minutes + " min</span>";
+        logList.appendChild(li);
+      });
+      emptyMsg.style.display = sessions.length === 0 ? "block" : "none";
+
+      // statistics for today
+      const today = new Date().toDateString();
+      const todays = sessions.filter(function (s) { return s.day === today; });
+      let mins = 0;
+      todays.forEach(function (s) { mins += s.minutes; });
+      document.getElementById("statSessions").textContent = todays.length;
+      document.getElementById("statMinutes").textContent = mins;
+      document.getElementById("statTotal").textContent = sessions.length;
+    }
+
+    // ---------- Called every second while the timer runs ----------
+    function tick() {
+      remaining--;
+      showTime();
+      if (remaining <= 0) {
+        clearInterval(timerId);
+        timerId = null;
+        if (mode === "focus") {
+          logSession(25);
+          timerMsg.textContent = "Great job! 25 minute session logged. Take a break.";
+          setMode("break");
+        } else {
+          timerMsg.textContent = "Break over. Ready for the next focus session?";
+          setMode("focus");
+        }
+      }
+    }
+
+    // ---------- Start / Pause button ----------
+    startBtn.addEventListener("click", function () {
+      if (timerId !== null) {                 // already running -> pause
+        clearInterval(timerId);
+        timerId = null;
+        startBtn.textContent = "Resume";
+        return;
+      }
+      // Validation: subject is needed for a focus session
+      if (mode === "focus" && subjectInput.value.trim() === "") {
+        timerMsg.textContent = "Please enter the subject you are studying first.";
+        return;
+      }
+      timerMsg.textContent = "";
+      timerId = setInterval(tick, 1000);
+      startBtn.textContent = "Pause";
+    });
+
+    // ---------- Stop & Log button ----------
+    document.getElementById("stopBtn").addEventListener("click", function () {
+      const studiedMinutes = Math.floor((totalSeconds - remaining) / 60);
+      if (mode === "focus" && studiedMinutes >= 1) {
+        logSession(studiedMinutes);
+        timerMsg.textContent = studiedMinutes + " minute session logged.";
+        setMode("focus");
+      } else {
+        timerMsg.textContent = "Study for at least 1 minute in Focus mode to log a session.";
+      }
+    });
+
+    // ---------- Reset, mode tabs, clear log ----------
+    document.getElementById("resetBtn").addEventListener("click", function () { setMode(mode); timerMsg.textContent = ""; });
+    focusTab.addEventListener("click", function () { setMode("focus"); });
+    breakTab.addEventListener("click", function () { setMode("break"); });
+    document.getElementById("clearBtn").addEventListener("click", function () {
+      sessions = [];
+      localStorage.removeItem("focusSessions");
+      renderLog();
+    });
+
+    // ---------- First load ----------
+    showTime();
+    renderLog();
+  </script>
+</body>
+</html>
