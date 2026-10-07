@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Showcase | Practical No. 4</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- ===== HEADER / NAVBAR (flex: column on mobile, row on md+) ===== -->
+  <header class="bg-indigo-700 text-white">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-4 gap-3">
+      <h1 class="text-2xl font-bold tracking-wide">ShopEase</h1>
+      <nav>
+        <ul class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm sm:text-base">
+          <li><a href="#home" class="hover:text-yellow-300">Home</a></li>
+          <li><a href="#products" class="hover:text-yellow-300">Products</a></li>
+          <li><a href="#features" class="hover:text-yellow-300">Features</a></li>
+          <li><a href="#contact" class="hover:text-yellow-300">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO SECTION (image stacks above text on mobile, side by side on lg) ===== -->
+  <section id="home" class="bg-indigo-50">
+    <div class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-8 px-4 py-10 md:py-16">
+      <div class="flex-1 text-center lg:text-left">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-indigo-800 leading-tight">
+          Introducing Our New Collection
+        </h2>
+        <p class="mt-4 text-gray-600 text-base sm:text-lg">
+          Stylish, durable and made for everyday life. Enjoy a seamless shopping
+          experience on any device.
+        </p>
+        <a href="#products"
+           class="inline-block mt-6 bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition">
+          Shop Now
+        </a>
+      </div>
+      <div class="flex-1 flex justify-center">
+        <img src="https://picsum.photos/seed/hero/600/400" alt="New collection"
+             class="rounded-xl shadow-lg w-full max-w-md lg:max-w-full" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCT GRID (Flexbox with wrap) =====
+       Mobile: 1 per row | sm: 2 per row | lg: 4 per row -->
+  <section id="products" class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Featured Products</h2>
+
+    <div class="flex flex-wrap -mx-3">
+
+      <!-- Product 1 -->
+      <div class="w-full sm:w-1/2 lg:w-1/4 px-3 mb-6">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col hover:shadow-xl transition">
+          <img src="https://picsum.photos/seed/p1/400/300" alt="Smart Watch" class="w-full h-48 object-cover" />
+          <div class="p-4 flex flex-col flex-1">
+            <h3 class="text-lg font-semibold">Smart Watch</h3>
+            <p class="text-sm text-gray-500 mt-1 flex-1">Track fitness, calls and notifications on your wrist.</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-indigo-700 font-bold text-lg">₹4,999</span>
+              <button class="bg-indigo-700 text-white text-sm px-3 py-2 rounded-lg hover:bg-indigo-800">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="w-full sm:w-1/2 lg:w-1/4 px-3 mb-6">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col hover:shadow-xl transition">
+          <img src="https://picsum.photos/seed/p2/400/300" alt="Headphones" class="w-full h-48 object-cover" />
+          <div class="p-4 flex flex-col flex-1">
+            <h3 class="text-lg font-semibold">Wireless Headphones</h3>
+            <p class="text-sm text-gray-500 mt-1 flex-1">Noise cancellation with 30 hours of battery life.</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-indigo-700 font-bold text-lg">₹2,499</span>
+              <button class="bg-indigo-700 text-white text-sm px-3 py-2 rounded-lg hover:bg-indigo-800">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="w-full sm:w-1/2 lg:w-1/4 px-3 mb-6">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col hover:shadow-xl transition">
+          <img src="https://picsum.photos/seed/p3/400/300" alt="Backpack" class="w-full h-48 object-cover" />
+          <div class="p-4 flex flex-col flex-1">
+            <h3 class="text-lg font-semibold">Travel Backpack</h3>
+            <p class="text-sm text-gray-500 mt-1 flex-1">Water-resistant, spacious and comfortable for daily use.</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-indigo-700 font-bold text-lg">₹1,799</span>
+              <button class="bg-indigo-700 text-white text-sm px-3 py-2 rounded-lg hover:bg-indigo-800">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="w-full sm:w-1/2 lg:w-1/4 px-3 mb-6">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col hover:shadow-xl transition">
+          <img src="https://picsum.photos/seed/p4/400/300" alt="Sneakers" class="w-full h-48 object-cover" />
+          <div class="p-4 flex flex-col flex-1">
+            <h3 class="text-lg font-semibold">Running Sneakers</h3>
+            <p class="text-sm text-gray-500 mt-1 flex-1">Lightweight cushioning for all-day comfort.</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="text-indigo-700 font-bold text-lg">₹3,299</span>
+              <button class="bg-indigo-700 text-white text-sm px-3 py-2 rounded-lg hover:bg-indigo-800">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FEATURES (column on mobile, row on md+) ===== -->
+  <section id="features" class="bg-white py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Why Shop With Us</h2>
+      <div class="flex flex-col md:flex-row gap-6">
+        <div class="flex-1 text-center p-6 bg-indigo-50 rounded-xl">
+          <div class="text-4xl mb-2">🚚</div>
+          <h3 class="font-semibold text-lg">Free Delivery</h3>
+          <p class="text-sm text-gray-600 mt-1">On all orders above ₹999.</p>
+        </div>
+        <div class="flex-1 text-center p-6 bg-indigo-50 rounded-xl">
+          <div class="text-4xl mb-2">🔒</div>
+          <h3 class="font-semibold text-lg">Secure Payment</h3>
+          <p class="text-sm text-gray-600 mt-1">100% safe and encrypted checkout.</p>
+        </div>
+        <div class="flex-1 text-center p-6 bg-indigo-50 rounded-xl">
+          <div class="text-4xl mb-2">↩️</div>
+          <h3 class="font-semibold text-lg">Easy Returns</h3>
+          <p class="text-sm text-gray-600 mt-1">7-day hassle-free return policy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="contact" class="bg-gray-900 text-gray-300">
+    <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row justify-between gap-6 text-center md:text-left">
+      <div>
+        <h3 class="text-white font-bold text-lg">ShopEase</h3>
+        <p class="text-sm mt-1">Your one-stop online store.</p>
+      </div>
+      <div class="text-sm">
+        <p>Email: support@shopease.com</p>
+        <p>Phone: +91 98765 43210</p>
+      </div>
+      <div class="flex justify-center md:justify-start gap-4 text-sm">
+        <a href="#" class="hover:text-white">Facebook</a>
+        <a href="#" class="hover:text-white">Instagram</a>
+        <a href="#" class="hover:text-white">Twitter</a>
+      </div>
+    </div>
+    <p class="text-center text-xs text-gray-500 pb-4">&copy; 2026 ShopEase. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
