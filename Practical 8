@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-pink-50 font-sans p-5">
+  <div class="max-w-md mx-auto my-5 bg-white p-7 rounded-xl shadow-lg">
+    <h1 class="text-center text-2xl font-bold text-pink-800">Student Registration</h1>
+    <p class="text-center text-slate-500 text-sm mb-4">Fields marked <span class="text-red-600">*</span> are mandatory</p>
+
+    <!-- novalidate turns off the browser's own validation so that our JavaScript messages are shown -->
+    <form id="regForm" novalidate>
+
+      <label for="fullname" class="block mt-3 font-bold text-sm">Full Name <span class="text-red-600">*</span></label>
+      <input type="text" id="fullname" placeholder="Enter your full name" class="w-full mt-1 p-2.5 border-2 border-pink-200 rounded-md">
+      <div class="text-red-600 text-xs mt-1 min-h-4" id="fullnameMsg"></div>
+
+      <label for="email" class="block mt-3 font-bold text-sm">Email <span class="text-red-600">*</span></label>
+      <input type="text" id="email" placeholder="example@gmail.com" class="w-full mt-1 p-2.5 border-2 border-pink-200 rounded-md">
+      <div class="text-red-600 text-xs mt-1 min-h-4" id="emailMsg"></div>
+
+      <label for="mobile" class="block mt-3 font-bold text-sm">Mobile Number <span class="text-red-600">*</span></label>
+      <input type="text" id="mobile" placeholder="10 digit mobile number" maxlength="10" class="w-full mt-1 p-2.5 border-2 border-pink-200 rounded-md">
+      <div class="text-red-600 text-xs mt-1 min-h-4" id="mobileMsg"></div>
+
+      <label for="branch" class="block mt-3 font-bold text-sm">Branch <span class="text-red-600">*</span></label>
+      <select id="branch" class="w-full mt-1 p-2.5 border-2 border-pink-200 rounded-md bg-white">
+        <option value="">-- Select Branch --</option>
+        <option>Computer Science and Engineering</option>
+        <option>Information Technology</option>
+        <option>Electronics Engineering</option>
+        <option>Mechanical Engineering</option>
+      </select>
+      <div class="text-red-600 text-xs mt-1 min-h-4" id="branchMsg"></div>
+
+      <label for="password" class="block mt-3 font-bold text-sm">Password <span class="text-red-600">*</span></label>
+      <input type="password" id="password" placeholder="Minimum 6 characters" class="w-full mt-1 p-2.5 border-2 border-pink-200 rounded-md">
+      <div class="text-red-600 text-xs mt-1 min-h-4" id="passwordMsg"></div>
+
+      <label for="confirm" class="block mt-3 font-bold text-sm">Confirm Password <span class="text-red-600">*</span></label>
+      <input type="password" id="confirm" placeholder="Re-enter password" class="w-full mt-1 p-2.5 border-2 border-pink-200 rounded-md">
+      <div class="text-red-600 text-xs mt-1 min-h-4" id="confirmMsg"></div>
+
+      <button type="submit" class="w-full mt-5 py-3 rounded-md font-bold text-white text-lg bg-pink-600 hover:bg-pink-800">Register</button>
+    </form>
+
+    <!-- Success message is hidden until the form is valid -->
+    <div id="success" class="hidden mt-4 bg-green-100 text-green-800 p-3 rounded-md text-center font-bold"></div>
+    <p class="text-center text-sm text-slate-600 mt-5">Parul Wanjari - CD25029</p>
+  </div>
+
+  <script>
+    const form = document.getElementById("regForm");
+    const success = document.getElementById("success");
+
+    // Remove every state class from a field and give it its normal (pink) border
+    function resetField(field) {
+      field.classList.remove("border-red-500", "bg-red-50", "border-green-500");
+      field.classList.add("border-pink-200");
+    }
+
+    // Helper: show an error message under a field (or mark it OK if text is empty)
+    function setError(id, text) {
+      const field = document.getElementById(id);
+      document.getElementById(id + "Msg").textContent = text;
+      resetField(field);
+      field.classList.remove("border-pink-200");
+      if (text === "") field.classList.add("border-green-500");            // valid -> green
+      else field.classList.add("border-red-500", "bg-red-50");             // invalid -> red
+      return text === ""; // true if no error
+    }
+
+    // Runs when the form is submitted
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // stop the page from reloading
+
+      const name = document.getElementById("fullname").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+      const branch = document.getElementById("branch").value;
+      const password = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm").value;
+
+      // Patterns (regular expressions)
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;   // something@something.something
+      const mobilePattern = /^[6-9][0-9]{9}$/;              // 10 digits starting with 6-9
+
+      let allValid = true;
+
+      // 1. Mandatory field: name
+      allValid = setError("fullname", name === "" ? "Full name is required." : "") && allValid;
+
+      // 2. Email format
+      if (email === "") allValid = setError("email", "Email is required.") && allValid;
+      else if (!emailPattern.test(email)) allValid = setError("email", "Enter a valid email like name@example.com.") && allValid;
+      else setError("email", "");
+
+      // 3. Mobile number
+      if (mobile === "") allValid = setError("mobile", "Mobile number is required.") && allValid;
+      else if (!mobilePattern.test(mobile)) allValid = setError("mobile", "Enter a valid 10 digit number starting with 6-9.") && allValid;
+      else setError("mobile", "");
+
+      // 4. Branch
+      allValid = setError("branch", branch === "" ? "Please select your branch." : "") && allValid;
+
+      // 5. Password length
+      if (password === "") allValid = setError("password", "Password is required.") && allValid;
+      else if (password.length < 6) allValid = setError("password", "Password must be at least 6 characters.") && allValid;
+      else setError("password", "");
+
+      // 6. Confirm password
+      if (confirm === "") allValid = setError("confirm", "Please confirm your password.") && allValid;
+      else if (confirm !== password) allValid = setError("confirm", "Passwords do not match.") && allValid;
+      else setError("confirm", "");
+
+      // Show success message only if everything is valid
+      if (allValid) {
+        success.textContent = "Registration successful! Welcome, " + name + ".";
+        success.classList.remove("hidden");
+        form.reset();
+        document.querySelectorAll("input, select").forEach(resetField);
+      } else {
+        success.classList.add("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
