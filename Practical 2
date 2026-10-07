@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile - Parul Wanjari</title>
+  <!-- Tailwind CSS through CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-200 text-slate-800 font-sans leading-relaxed">
+
+  <!-- <header> : top banner of the page -->
+  <header class="bg-blue-900 text-white text-center pt-6">
+    <h1 class="text-3xl font-bold">Student Profile</h1>
+    <p class="text-sm opacity-90 mt-1 px-4">S. B. Jain Institute of Technology, Management &amp; Research, Nagpur</p>
+
+    <!-- <nav> : links that jump to each section using its id -->
+    <nav class="mt-4 bg-blue-950 flex flex-wrap justify-center">
+      <a href="#about" class="px-5 py-3 hover:bg-blue-600">About Me</a>
+      <a href="#education" class="px-5 py-3 hover:bg-blue-600">Education</a>
+      <a href="#hobbies" class="px-5 py-3 hover:bg-blue-600">Hobbies</a>
+      <a href="#contact" class="px-5 py-3 hover:bg-blue-600">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Layout: 1 column on mobile, 4 columns (1 for photo + 3 for details) from md screens -->
+  <div class="max-w-5xl mx-auto my-6 px-4 grid grid-cols-1 md:grid-cols-4 gap-6">
+
+    <!-- <aside> : side content (photograph + roll number) -->
+    <aside class="md:col-span-1 bg-white rounded-lg p-5 shadow self-start">
+      <!-- <figure> and <figcaption> are used for an image with a caption.
+           The photo is an inline SVG avatar; replace the src with your own photo (e.g. src="photo.jpg") -->
+      <figure class="text-center">
+        <img alt="Photograph of Parul Wanjari" class="w-44 h-44 rounded-full border-4 border-blue-600 mx-auto"
+             src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><rect width='180' height='180' fill='%23dbeafe'/><circle cx='90' cy='70' r='34' fill='%232563eb'/><path d='M25 180 Q90 85 155 180 Z' fill='%232563eb'/></svg>">
+        <figcaption class="mt-3 font-bold">Parul Wanjari</figcaption>
+        <span class="inline-block mt-1 bg-blue-100 text-blue-800 text-sm px-3 py-0.5 rounded-full">Roll No: CD25029</span>
+      </figure>
+    </aside>
+
+    <!-- <main> : the main content of the page -->
+    <main class="md:col-span-3 space-y-5">
+
+      <!-- Personal information -->
+      <section id="about" class="bg-white rounded-lg p-5 shadow">
+        <h2 class="text-xl font-bold text-blue-900 border-b-2 border-blue-200 pb-1 mb-3">Personal Information</h2>
+        <dl class="grid grid-cols-3 gap-y-1">
+          <dt class="font-bold">Full Name:</dt>       <dd class="col-span-2">Parul Roshan Wanjari</dd>
+          <dt class="font-bold">Roll No. / USN:</dt>  <dd class="col-span-2">CD25029</dd>
+          <dt class="font-bold">Course:</dt>          <dd class="col-span-2">B.Tech - Computer Science and Engineering</dd>
+          <dt class="font-bold">Semester / Year:</dt> <dd class="col-span-2">III / II</dd>
+          <dt class="font-bold">City:</dt>            <dd class="col-span-2">Nagpur, Maharashtra</dd>
+        </dl>
+        <p class="mt-3">I am a computer engineering student who enjoys learning web development and building small
+           projects to practise what I learn in class.</p>
+      </section>
+
+      <!-- Education details -->
+      <section id="education" class="bg-white rounded-lg p-5 shadow">
+        <h2 class="text-xl font-bold text-blue-900 border-b-2 border-blue-200 pb-1 mb-3">Education Details</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-blue-100">
+                <th class="border border-slate-300 p-2 text-left">Qualification</th>
+                <th class="border border-slate-300 p-2 text-left">Institute</th>
+                <th class="border border-slate-300 p-2 text-left">Board / University</th>
+                <th class="border border-slate-300 p-2 text-left">Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border border-slate-300 p-2">B.Tech (CSE)</td><td class="border border-slate-300 p-2">S. B. Jain Institute of Technology, Management &amp; Research</td><td class="border border-slate-300 p-2">RTMNU, Nagpur</td><td class="border border-slate-300 p-2">2025 - Present</td></tr>
+              <tr><td class="border border-slate-300 p-2">HSC (XII)</td><td class="border border-slate-300 p-2">Junior College, Nagpur</td><td class="border border-slate-300 p-2">Maharashtra State Board</td><td class="border border-slate-300 p-2">2025</td></tr>
+              <tr><td class="border border-slate-300 p-2">SSC (X)</td><td class="border border-slate-300 p-2">High School, Nagpur</td><td class="border border-slate-300 p-2">Maharashtra State Board</td><td class="border border-slate-300 p-2">2023</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Hobbies -->
+      <section id="hobbies" class="bg-white rounded-lg p-5 shadow">
+        <h2 class="text-xl font-bold text-blue-900 border-b-2 border-blue-200 pb-1 mb-3">Hobbies</h2>
+        <ul class="list-disc pl-6">
+          <li>Writing code and building small projects</li>
+          <li>Designing clean web pages</li>
+          <li>Reading about new technology</li>
+          <li>Exploring new tools and software</li>
+        </ul>
+      </section>
+
+      <!-- Contact information: <address> is the semantic tag for contact details -->
+      <section id="contact" class="bg-white rounded-lg p-5 shadow">
+        <h2 class="text-xl font-bold text-blue-900 border-b-2 border-blue-200 pb-1 mb-3">Contact Information</h2>
+        <address class="not-italic">
+          Email: <a href="mailto:parul.wanjari@example.com" class="text-blue-700 underline">parul.wanjari@example.com</a><br>
+          Phone: +91 98765 43210<br>
+          Address: Nagpur, Maharashtra, India
+        </address>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- <footer> : bottom of the page -->
+  <footer class="text-center p-4 text-sm text-slate-600">
+    <p>&copy; 2026 Parul Wanjari - CD25029 | Web Fundamentals and Basic Frontend Design Lab</p>
+  </footer>
+
+</body>
+</html>
